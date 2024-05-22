@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime as dt
 
 db = SQLAlchemy() #db se convierte en un objeto que nos permite interactuar con la base de datos
 
