@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.cdnfonts.com/css/gorilla" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/br-shape" rel="stylesheet">
     <title>Inicio</title>
 </head>
+<header class="p-10">    
+    <h1 style="font-family:gorilla" class="text-center font-extrabold text-[#8c315d] text-7xl p-7">Bienvenido a Avanza Diario</h1>
+    <p style="font-family:br-shape" class="text-center text-[#8c315d] text-4xl p-4">Listo para crear nuevos hábitos?</p>
+</header>
+
 <body class="bg-[#f6f4c2]">
-    <header class="p-10">    
-        <h1 class="text-center font-extrabold text-[#8c315d] text-7xl p-7">Bienvenido a Avanza Diario</h1>
-        <p class="text-center font-semibold text-[#8c315d] text-4xl p-4">Listo para crear nuevos hábitos?</p>
-    </header>
+
 <div class="fixed bottom-0 space-x-20 ml-30 mr-30 mt-30 relative">
     <a href="{{ url_for('iniciar_sesion') }}">        
-        <button class="absolute bottom-0 right-0 text-[#f6f4c2] p-6 bg-[#78a890] font-bold rounded-t-lg shadow-2xl flex-auto hover:resize-y hover:bg-[#5F8A74] ml-30 mr-30 mt-30">Iniciar Sesion</button>
+        <button class="absolute bottom-0 right-0 text-[#f6f4c2] p-6 bg-[#78a890] font-bold rounded-t-lg shadow-2xl flex-auto hover:resize-y hover:bg-[#5F8A74] ml-30 mr-30 mt-30 transform transition-transform duration-300 hover:scale-110">Iniciar Sesion</button>
     </a>
 
     <a href="{{ url_for('registrar') }}">
-        <button class="absolute bottom-0 left-0 text-[#f6f4c2] p-6 bg-[#78a890] font-bold rounded-t-lg shadow-2xl flex-auto hover:resize-y hover:bg-[#5F8A74] ml-30 mr-30 mt-30 "> Registrarse  </button>
+        <button class="absolute bottom-0 left-0 text-[#f6f4c2] p-6 bg-[#78a890] font-bold rounded-t-lg shadow-2xl flex-auto hover:resize-y hover:bg-[#5F8A74] ml-30 mr-30 mt-30 transform transition-transform duration-300 hover:scale-110"> Registrarse  </button>
     </a>
 </div>
 </body>
