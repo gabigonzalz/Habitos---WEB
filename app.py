@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for,session
 from conexion import app, db
-#from models import Usuarios
+from models import Usuarios,HabitosUsuarios,HabitosPersonalizados,HabitosCompletados
 import datetime as dt
 
 #RUTA; SALUDO
@@ -14,8 +14,19 @@ def index():
 def registrar():
     if request.method == 'POST':
         # Aquí se procesan los datos de registro
+        nombre = request.form['nombre']
+        contrasena = request.form['contrasena']
+        correo = request.form['correo']
+
+        datos_usuario = Usuarios(nombre=nombre, contrasena=contrasena, correo=correo)
+
+        db.session.add(datos_usuario)
+        db.session.commit() # metodo parac confirmar todas las operaciones registradas en la sesion
+        
+        session["id_usuario"] = datos_usuario.id_usuario
+
         # Después de registrarlo, redirigimos al usuario a la página de inicio de sesión
-        return redirect(url_for('iniciar_sesion.html'))
+        return redirect(url_for('iniciar_sesion'))
     return render_template('registrar.html')
 
 
@@ -23,14 +34,19 @@ def registrar():
 @app.route('/iniciar_sesion',methods = ['POST','GET'])
 def iniciar_sesion():
     if request.method == 'POST':
-        #Ingresa datos de nuevo  p/ validar
-        nombre = request.form['nombre']
-        contrasenha = request.form['contrasenha']
-        correo = request.form['correo']
 
-        # Aquí va la lógica para verificar los datos de inicio de sesión
-        # Si son válidos, redirigen al usuario a la página principal 
-        return redirect(url_for('pagina_principal.html'))
+        contrasena = request.form['contrasena']
+        correo = request.form['correo']
+        # Buscar el usuario en la base de datos
+        datos_usuario = Usuarios.query.filter_by(correo=correo, contrasena=contrasena).first()
+
+        if datos_usuario:
+            session["id_usuario"] = datos_usuario.id_usuario
+            return redirect(url_for('pagina_principal'))
+        else:
+            # Manejar error de autenticación
+            error = "Correo o contraseña incorrectos"
+            return render_template('iniciar_sesion.html', error=error)
 
     return render_template('iniciar_sesion.html')  # Renderizar el formulario de inicio de sesión
 
@@ -38,13 +54,20 @@ def iniciar_sesion():
 #RUTA; PAGINA PRINCIPAL (HABITOS)
 @app.route('/pagina_principal')
 def pagina_principal():
-    
+    id_usuario = session.get("id_usuario")
+
+    #HabitosUsuarios
+    #HabitosPersonalizados
+
+
     return render_template('pagina_principal.html')
 
 
 #RUTA; HISTORIA; (HABITOS)
 @app.route('/historial')
 def historial_habitos():
+
+#HabitosCompletados
 
     return render_template("historial.html")
 
