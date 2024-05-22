@@ -44,10 +44,8 @@ def pagina_principal():
 #RUTA; HISTORIA; (HABITOS)
 @app.route('/historial')
 def historial_habitos():
-    
-    #historial = 
 
-    return render_template("historial.html", historial=historial)
+    return render_template("historial.html")
 
 
 #Siempre al final:
