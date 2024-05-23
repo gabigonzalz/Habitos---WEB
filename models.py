@@ -3,13 +3,15 @@ import datetime as dt
 
 db = SQLAlchemy()
 
+# TABLAS NECESARIAS PARA ALMACENAR LOS DATOS DE LA PAGINA #
+
 #Creacion de usuarios
 class Usuarios(db.Model):
     id_usuario = db.Column(db.Integer, primary_key=True) 
     nombre = db.Column(db.String, nullable=False) 
     contrasena = db.Column(db.String(20), nullable=False)
     correo = db.Column(db.String, nullable=False)
-    habitos_usuarios = db.relationship('HabitosUsuarios', backref='usuario', lazy=True)
+    habitos_usuarios = db.relationship('HabitosUsuarios', backref='usuario', lazy=True) #Definimos relacion entre usuarios y sus habitos
 
     def __init__(self, nombre, contrasena, correo):
         self.nombre = nombre
