@@ -28,16 +28,22 @@
             <ul class="list-disc list-inside" style="font-family:Roboto Condensed">
                 {% for habito in habitos_personalizados %}
                 <li class="mb-2 flex justify-between items-center">
-                    <span>{{ habito.habito_nombre }}</span>
-                    <form action="/completar_habito/{{ habito.id_habitos_personalizados }}" method="post">
-                        <input type="checkbox" name="completado" id="completado_{{ habito.id_habitos_personalizados }}" class="form-checkbox h-5 w-5 text-blue-600" {% if habito.completado %} checked {% endif %}>
-                        <label for="completado_{{ habito.id_habitos_personalizados }}" class="ml-2 text-gray-700">Completado</label>
-                        <button type="submit" class="hidden"></button> <!-- Botón oculto para enviar el formulario al hacer clic en el checkbox -->
-                    </form>
+                    <span class="transition-colors {% if habito.completado %}text-gray-400{% else %}text-black{% endif %}">{{ habito.habito_nombre }}</span>
+                    <div class="flex items-center">
+                        <form action="/completar_habito/{{ habito.id_habitos_personalizados }}" method="post" class="flex items-center">
+                            <input type="checkbox" name="completado" id="completado_{{ habito.id_habitos_personalizados }}" class="form-checkbox h-5 w-5 text-blue-600" {% if habito.completado %} checked {% endif %} onchange="this.form.submit()">
+                            <label for="completado_{{ habito.id_habitos_personalizados }}" class="ml-2 text-gray-700">Completado</label>
+                        </form>
+                        <form action="/eliminar_habito/{{ habito.id_habitos_personalizados }}" method="post" class="ml-4">
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Eliminar</button>
+                        </form>
+                    </div>
                 </li>
                 {% endfor %}
             </ul>
             {% endif %}
+
+
             <div class="flex justify-center space-x-4 mt-4 ">
             <a href="/agregar_habito" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
                 Agregar Nuevo Hábito

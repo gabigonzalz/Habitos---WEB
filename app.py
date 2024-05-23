@@ -98,6 +98,22 @@ def completar_habito(id_habito):
 
 
 
+@app.route('/eliminar_habito/<int:id_habito>', methods=['POST'])
+def eliminar_habito(id_habito):
+    id_usuario = session.get("id_usuario")
+
+    if id_usuario:
+        habito_a_eliminar = HabitosPersonalizados.query.filter_by(id_habitos_personalizados=id_habito, id_usuario=id_usuario).first()
+
+        if habito_a_eliminar:
+            db.session.delete(habito_a_eliminar)
+            db.session.commit()
+            return redirect(url_for('pagina_principal'))
+    
+    return redirect(url_for('pagina_principal', error="Error al eliminar el hábito"))
+
+
+
 #RUTA; PAGINA PRINCIPAL (HABITOS)
 @app.route('/pagina_principal')
 def pagina_principal():
