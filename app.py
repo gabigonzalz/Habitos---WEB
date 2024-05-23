@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for,session
 from conexion import app, db
-from models import Usuarios,HabitosUsuarios,HabitosPersonalizados,HabitosCompletados
+from models import Usuarios,HabitosPersonalizados,HabitosCompletados, HabitosUsuarios
 import datetime as dt
 
 
@@ -52,45 +52,36 @@ def iniciar_sesion():
     return render_template('iniciar_sesion.html')
 
 
-#RUTA; PAGINA PRINCIPAL (HABITOS)
-@app.route('/pagina_principal')
-def pagina_principal():
-    id_usuario = session.get("id_usuario")
-
-    usuario = Usuarios.query.get(id_usuario)
-    habitos_usuario = HabitosUsuarios.query.filter_by(id_usuario=id_usuario).all()
-    habitos_personalizados = [habito_usuario.habito_personalizado for habito_usuario in habitos_usuario]
-
-    return render_template('pagina_principal.html', usuario=usuario, habitos_personalizados=habitos_personalizados)
-
-
 #RUTA; PARA ANHADIR UN HABITO NUEVO
 @app.route('/agregar_habito', methods=['POST', 'GET'])
 def agregar_habito():
     if request.method == 'POST':
-        nuevo_habito = request.form["nuevo_habito_input"]
-        id_usuario = session.get("id_usuario")  # Sacamos la ID del usuario
-
-        # Verificar que el usuario haya iniciado sesion y que agrego un habito
+        #Pedimos el habito al usuario en especifico
+        nuevo_habito = request.form.get("nuevo_habito_input")
+        id_usuario = session.get("id_usuario")
+        #Si se agrega un nuevo habito lo cargamos a sus habitos personalizados
         if id_usuario and nuevo_habito:
-            # Crear un nuevo hábito personalizado al usuario
-            nuevo_habito_personalizado = HabitosPersonalizados(habito_nombre=nuevo_habito)
-            
-            # Guardar el nuevo hábito en la tabla
+            nuevo_habito_personalizado = HabitosPersonalizados(habito_nombre=nuevo_habito, id_usuario=id_usuario)
             db.session.add(nuevo_habito_personalizado)
             db.session.commit()
-
-            # Crear la relación entre el usuario y el nuevo hábito personalizado
-            nuevo_habito_usuario = HabitosUsuarios(id_usuario=id_usuario, id_habito_personalizado=nuevo_habito_personalizado.id_habitos_personalizados)
-            db.session.add(nuevo_habito_usuario)
-            db.session.commit()
-            
+            #Volvemos a la pagina principal o damos error
             return redirect(url_for('pagina_principal'))
         else:
-            # Redirigir con un mensaje de error si algo sale mal
             return redirect(url_for('pagina_principal', error="Error al agregar el hábito"))
-    
+
     return render_template('agregar_habito.html')
+
+#RUTA; PAGINA PRINCIPAL (HABITOS)
+@app.route('/pagina_principal')
+def pagina_principal():
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return redirect(url_for('iniciar_sesion'))
+
+    usuario = Usuarios.query.get(id_usuario)
+    habitos_personalizados = HabitosPersonalizados.query.filter_by(id_usuario=id_usuario).all()
+
+    return render_template('pagina_principal.html', usuario=usuario, habitos_personalizados=habitos_personalizados)
 
 
 #RUTA; HISTORIA; (HABITOS)
