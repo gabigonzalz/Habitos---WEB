@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +9,31 @@
     <link href="https://fonts.cdnfonts.com/css/br-shape" rel="stylesheet">
     <title>Inicio</title>
 </head>
-<header class="p-10">    
-    <h1 style="font-family:gorilla" class="text-center font-extrabold text-[#8c315d] text-7xl p-7">Bienvenido a Avanza Diario</h1>
-    <p style="font-family:br-shape" class="text-center text-[#8c315d] text-4xl p-4">Listo para crear nuevos hábitos?</p>
-</header>
 
 <body class="bg-[#F6E8EA]">
 
-<div class="w-full max-w-sm mx-auto px-8 pt-6 pb-8 mb-4">
-        <a href="{{ url_for('iniciar_sesion') }}">        
-            <button class="absolute bottom-0 right-20 text-[#F6E8EA] p-6 bg-[#5f051f] font-bold rounded-t-lg shadow-2xl flex-auto hover:resize-y hover:bg-[#5F8A74] ml-30 mr-30 mt-30 transform transition-transform duration-300 hover:scale-110">Iniciar Sesion</button>
-        </a>
-    
-        <a href="{{ url_for('registrar') }}">
-            <button class="absolute bottom-0 left-20 text-[#F6E8EA] p-6 bg-[#5f051f] font-bold rounded-t-lg shadow-2xl flex-auto hover:resize-y hover:bg-[#5F8A74] ml-30 mr-30 mt-30 transform transition-transform duration-300 hover:scale-110"> Registrarse  </button>
-        </a>
-</div>
+    <div class="flex flex-row items-center justify-between h-screen">
+
+        <div class="flex flex-col items-start justify-center ml-20">
+            <h1 style="font-family:gorilla" class="font-extrabold text-[#8c315d] text-7xl">Bienvenido a Avanza Diario</h1>
+            <p style="font-family:br-shape" class="text-[#8c315d] text-4xl">Listo para crear nuevos hábitos?</p>
+
+            <div class="mt-10 space-x-8">
+                <a href="{{ url_for('iniciar_sesion') }}">
+                    <button class="text-[#F6E8EA] p-6 bg-[#5f051f] font-bold rounded-lg shadow-2xl hover:bg-[#5F8A74] hover:scale-110">Iniciar Sesión</button>
+                </a>
+
+                <a href="{{ url_for('registrar') }}">
+                    <button class="text-[#F6E8EA] p-6 bg-[#5f051f] font-bold rounded-lg shadow-2xl hover:bg-[#5F8A74] hover:scale-110 mt-5">Registrarse</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="mr-20 size-auto">
+            <img src="static/estrellas.png" alt="Estrellas" class="size-auto">
+        </div>
+
+    </div>
+
 </body>
 </html>
