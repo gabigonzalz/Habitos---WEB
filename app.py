@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for,session
 from conexion import app, db
 from models import Usuarios,HabitosPersonalizados,HabitosCompletados, HabitosUsuarios
-import datetime as dt
+from datetime import datetime
 
 # RUTAS Y FUNCIONES DEL PROGRAMA #
 
@@ -90,8 +90,8 @@ def completar_habito(id_habito):
         nuevo_habito_completado = HabitosCompletados(
             id_usuario=session["id_usuario"],  # ID del usuario autenticado
             id_habito_personalizado=id_habito,  # ID del hábito que se está completando
-            fecha_completado=datetime.utcnow()  # Marca de tiempo de cuando se completó el hábito
-        )
+            fecha_completado=datetime.today()  # Marca de tiempo de cuando se completó el hábito
+            )
         db.session.add(nuevo_habito_completado)  # Agrega el nuevo registro a la sesión de la base de datos
         db.session.commit()  # Confirma los cambios en la base de datos
     return redirect(url_for('pagina_principal'))  # Redirige al usuario a la página principal
@@ -132,22 +132,20 @@ def pagina_principal():
 
 
 
+
 # RUTA; PARA MOSTRAR EL HISTORIAL DE HÁBITOS COMPLETADOS
-@app.route('/historial')  # Define una ruta para mostrar el historial de hábitos
+@app.route('/historial')
 def historial_habitos():
-    id_usuario = session.get("id_usuario")  # Obtiene el ID del usuario de la sesión
-    if not id_usuario:  # Si no hay un usuario autenticado
-        return redirect(url_for('iniciar_sesion'))  # Redirige al usuario a la página de inicio de sesión
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return redirect(url_for('iniciar_sesion'))
 
-    # Obtiene los datos del usuario y sus hábitos completados
-    usuario = Usuarios.query.get(id_usuario)  # Obtiene el objeto de usuario de la base de datos
-    habitos_completados = HabitosCompletados.query.filter_by(id_usuario=id_usuario).all()  # Obtiene todos los hábitos completados por el usuario
+    usuario = Usuarios.query.get(id_usuario)
+    habitos_completados = db.session.query(HabitosCompletados, HabitosPersonalizados)\
+                        .join(HabitosPersonalizados, HabitosCompletados.id_habito_personalizado == HabitosPersonalizados.id_habitos_personalizados)\
+                        .filter(HabitosCompletados.id_usuario == id_usuario).all()
 
-    #pasa los datos del usuario y sus hábitos completados a la plantilla
     return render_template("historial.html", usuario=usuario, habitos_completados=habitos_completados)
-
-
-
 
 # Siempre al final para poder ejecutar el programa
 if __name__ == "__main__":
