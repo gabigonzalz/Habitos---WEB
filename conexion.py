@@ -1,3 +1,4 @@
+# Importamos las funciones necesarias
 from models import db #Para interactuar con los modelos de la base de datos
 from flask import Flask
 

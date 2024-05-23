@@ -1,3 +1,4 @@
+# Importamos funciones necesarias
 from flask_sqlalchemy import SQLAlchemy
 import datetime as datetime
 
@@ -40,7 +41,7 @@ class HabitosUsuarios(db.Model):
         self.id_habito_personalizado = id_habito_personalizado
 
 
-#Hábitos que los usuarios completan
+#Hábitos que los usuarios completaron
 class HabitosCompletados(db.Model):
     id_habitos_completados = db.Column(db.Integer, primary_key=True)  
     id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id_usuario"), nullable=False)  

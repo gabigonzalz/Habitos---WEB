@@ -11,23 +11,22 @@
     <title>Agregar Hábito</title>
 </head>
 <body class="border-t-8 border-[#F6E8EA] flex items-center justify-center min-h-screen bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#993A55] to-[#5f051f]">
-    <!-- Contenedor principal centrado con un fondo de gradiente radial -->
 
-    <!-- Imágenes decorativas posicionadas absolutamente -->
+    <!-- Imágenes decorativas -->
     <img src="static/estrellita.png" alt="Estrellita 1" class="absolute right-40 w-20 h-20 z-10 mt-4 ml-4">
     <img src="static/estrellita.png" alt="Estrellita 2" class="absolute left-40 w-20 h-20 z-10 mb-4 mr-4"> 
 
-    <!-- Enlace estilizado para volver atrás -->
+    <!-- Enlace para volver atras -->
     <a href="pagina_principal" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">
         Volver atrás
     </a>
 
     <!-- Contenedor del formulario de agregar hábito -->
     <div class="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <!-- Título del formulario -->
+        <!-- Título -->
         <h1 style="font-family:gorilla" class="text-2xl font-bold mb-6 text-center text-[#8c315d]">Agregar Hábito</h1>
         
-        <!-- Mensaje de error condicional -->
+        <!-- Mensaje de error (Por si acaso) -->
         {% if error %}
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             <strong class="font-bold">Error: </strong>
@@ -42,7 +41,7 @@
                 <label for="nuevo_habito_input" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Hábito</label>
                 <input type="text" name="nuevo_habito_input" id="nuevo_habito_input" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
             </div>
-            <!-- Botón para enviar el formulario -->
+            <!-- Botón para enviar el nuevo habito -->
             <div class="flex items-center justify-between">
                 <button type="submit" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition-transform duration-200 hover:scale-110">
                     Agregar Hábito

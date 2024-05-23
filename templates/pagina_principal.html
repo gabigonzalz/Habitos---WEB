@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -10,41 +11,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
 </head>
+
 <body class="border-t-8 border-[#8c315d] flex items-center justify-center min-h-screen bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#F6B4BD] to-[#F6E8EA]">
+
+    <!-- Imágenes de estrellitas decorativas -->
+    <img src="static/estrellita2.png" alt="Estrellita 1" class="absolute right-40 w-20 h-20 z-10 mt-4 ml-4">
+    <img src="static/estrellita2.png" alt="Estrellita 2" class="absolute left-40 w-20 h-20 z-10 mb-4 mr-4"> 
+    <!-- Enlace para salir -->
+    <a href="./" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#F6E8EA] p-4 bg-[#8c315d] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Salir</a>
+
+    <div class="w-full max-w-xl mx-auto bg-[#F6E8EA] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <!-- Título de la sección de hábitos -->
+        <h1 style="font-family:gorilla" class="text-2xl font-bold mb-6 text-center text-[#8c315d]">Tus Hábitos</h1>
     
-        <!-- Estrella medio-der -->
-        <img src="static/estrellita2.png" alt="Estrellita 1" class="absolute right-40 w-20 h-20 z-10 mt-4 ml-4">
+        {% if habitos_personalizados %}
+        <!-- Bloque condicional para mostrar hábitos personalizados -->
+        <ul class="list-disc list-inside" style="font-family:Roboto Condensed">
+            <!-- Bucle for para iterar sobre los hábitos personalizados -->
+            {% for habito in habitos_personalizados %}
+            <!-- Elemento de lista para cada hábito personalizado -->
+            <li class="mb-2 flex justify-between items-center">
+                <!-- Nombre del hábito -->
+                <span class="transition-colors {% if habito.completado %}text-gray-400{% else %}text-black{% endif %}">{{ habito.habito_nombre }}</span>
+                <!-- Formularios para marcar como completado y eliminar -->
+                <div class="flex items-center">
+                    <form action="/completar_habito/{{ habito.id_habitos_personalizados }}" method="post" class="flex items-center">
+                        <!-- Checkbox para marcar como completado -->
+                        <input type="checkbox" name="completado" id="completado_{{ habito.id_habitos_personalizados }}" class="form-checkbox h-5 w-5 text-blue-600" {% if habito.completado %} checked {% endif %} onchange="this.form.submit()">
+                        <label for="completado_{{ habito.id_habitos_personalizados }}" class="ml-2 text-gray-700">Completado</label>
+                    </form>
+                    <!-- Formulario para eliminar el hábito -->
+                    <form action="/eliminar_habito/{{ habito.id_habitos_personalizados }}" method="post" class="ml-4">
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Eliminar</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
 
-        <!-- Estrella medio-iz  -->
-        <img src="static/estrellita2.png" alt="Estrellita 2" class="absolute left-40 w-20 h-20 z-10 mb-4 mr-4"> 
-
-        <a href="./" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#F6E8EA] p-4 bg-[#8c315d] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Salir</a>
-
-
-        <div class="w-full max-w-xl mx-auto bg-[#F6E8EA] shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h1 style="font-family:gorilla" class="text-2xl font-bold mb-6 text-center text-[#8c315d]">Tus Hábitos</h1>
-        
-            {% if habitos_personalizados %}
-            <ul class="list-disc list-inside" style="font-family:Roboto Condensed">
-                {% for habito in habitos_personalizados %}
-                <li class="mb-2 flex justify-between items-center">
-                    <span class="transition-colors {% if habito.completado %}text-gray-400{% else %}text-black{% endif %}">{{ habito.habito_nombre }}</span>
-                    <div class="flex items-center">
-                        <form action="/completar_habito/{{ habito.id_habitos_personalizados }}" method="post" class="flex items-center">
-                            <input type="checkbox" name="completado" id="completado_{{ habito.id_habitos_personalizados }}" class="form-checkbox h-5 w-5 text-blue-600" {% if habito.completado %} checked {% endif %} onchange="this.form.submit()">
-                            <label for="completado_{{ habito.id_habitos_personalizados }}" class="ml-2 text-gray-700">Completado</label>
-                        </form>
-                        <form action="/eliminar_habito/{{ habito.id_habitos_personalizados }}" method="post" class="ml-4">
-                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Eliminar</button>
-                        </form>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-
-            <div class="flex justify-center space-x-4 mt-4 ">
+        <!-- Botones para agregar un nuevo hábito y ver el historial -->
+        <div class="flex justify-center space-x-4 mt-4 ">
             <a href="/agregar_habito" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
                 Agregar Nuevo Hábito
             </a>

@@ -1,9 +1,10 @@
+# Importamos las funciones necesarias
 from flask import render_template, request, redirect, url_for,session
 from conexion import app, db
 from models import Usuarios,HabitosPersonalizados,HabitosCompletados, HabitosUsuarios
 from datetime import datetime
 
-# RUTAS Y FUNCIONES DEL PROGRAMA #
+##### RUTAS Y FUNCIONES DEL PROGRAMA #####
 
 #RUTA; SALUDO AL USUARIO
 @app.route('/')
@@ -82,34 +83,43 @@ def agregar_habito():
 
     return render_template('agregar_habito.html')
 
+
+
 # RUTA; PARA REGISTRAR UN HÁBITO COMPLETADO
 @app.route('/completar_habito/<int:id_habito>', methods=['POST'])  
 def completar_habito(id_habito):
-    if session.get("id_usuario"):  # Verifica si hay un usuario autenticado en la sesión
-        # Crea un nuevo registro de hábito completado
+    if session.get("id_usuario"):  # Verifica el usuario
+
+        # Crea un nuevo registro del hábito completado
         nuevo_habito_completado = HabitosCompletados(
             id_usuario=session["id_usuario"],  # ID del usuario autenticado
             id_habito_personalizado=id_habito,  # ID del hábito que se está completando
             fecha_completado=datetime.today()  # Marca de tiempo de cuando se completó el hábito
             )
-        db.session.add(nuevo_habito_completado)  # Agrega el nuevo registro a la sesión de la base de datos
-        db.session.commit()  # Confirma los cambios en la base de datos
-    return redirect(url_for('pagina_principal'))  # Redirige al usuario a la página principal
+        
+        db.session.add(nuevo_habito_completado)
+        db.session.commit()
+    # Volvemos a la pagina
+    return redirect(url_for('pagina_principal'))
 
 
 
+#RUTA; FUNCION ELIMINAR HABITO
 @app.route('/eliminar_habito/<int:id_habito>', methods=['POST'])
 def eliminar_habito(id_habito):
-    id_usuario = session.get("id_usuario")
-
+    id_usuario = session.get("id_usuario") # Obtener el ID
+    
     if id_usuario:
         habito_a_eliminar = HabitosPersonalizados.query.filter_by(id_habitos_personalizados=id_habito, id_usuario=id_usuario).first()
+        
+        if habito_a_eliminar: # Si se encuentra el hábito a eliminar
+            db.session.delete(habito_a_eliminar) # Eliminar el hábito de la base de datos
 
-        if habito_a_eliminar:
-            db.session.delete(habito_a_eliminar)
             db.session.commit()
+
             return redirect(url_for('pagina_principal'))
-    
+        
+    # Si no se encuentra el hábito o no hay un usuario en sesión, redirigir a la página principal
     return redirect(url_for('pagina_principal', error="Error al eliminar el hábito"))
 
 
@@ -132,20 +142,26 @@ def pagina_principal():
 
 
 
-
-# RUTA; PARA MOSTRAR EL HISTORIAL DE HÁBITOS COMPLETADOS
-@app.route('/historial')
+# RUTA; HISTORIAL DE HÁBITOS COMPLETADOS
+@app.route('/historial') 
 def historial_habitos():
-    id_usuario = session.get("id_usuario")
-    if not id_usuario:
+    id_usuario = session.get("id_usuario") # Obtener el ID 
+
+    if not id_usuario: # Si no hay un usuario en sesión, redirigir a la página de inicio de sesión
         return redirect(url_for('iniciar_sesion'))
 
-    usuario = Usuarios.query.get(id_usuario)
+    usuario = Usuarios.query.get(id_usuario) # Obtener los datos del usuario
+
+    # Obtener los hábitos completados por el usuario
     habitos_completados = db.session.query(HabitosCompletados, HabitosPersonalizados)\
                         .join(HabitosPersonalizados, HabitosCompletados.id_habito_personalizado == HabitosPersonalizados.id_habitos_personalizados)\
                         .filter(HabitosCompletados.id_usuario == id_usuario).all()
 
     return render_template("historial.html", usuario=usuario, habitos_completados=habitos_completados)
+
+
+
+
 
 # Siempre al final para poder ejecutar el programa
 if __name__ == "__main__":
