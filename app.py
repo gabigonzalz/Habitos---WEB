@@ -133,8 +133,6 @@ def historial_habitos():
 
 
 
-
-
 # Siempre al final para poder ejecutar el programa
 if __name__ == "__main__":
     app.run(debug= True)

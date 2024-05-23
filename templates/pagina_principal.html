@@ -18,7 +18,7 @@
         <!-- Estrella medio-iz  -->
         <img src="static/estrellita2.png" alt="Estrellita 2" class="absolute left-40 w-20 h-20 z-10 mb-4 mr-4"> 
 
-        <a href="index" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#F6E8EA] p-4 bg-[#8c315d] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Salir</a>
+        <a href="./" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#F6E8EA] p-4 bg-[#8c315d] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Salir</a>
 
 
         <div class="w-full max-w-xl mx-auto bg-[#F6E8EA] shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -38,13 +38,14 @@
                 {% endfor %}
             </ul>
             {% endif %}
-
-        <a href="/agregar_habito" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
-            Agregar Nuevo Hábito
-        </a>
-        <a href="/historial" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
-            Historial
-        </a>
+            <div class="flex justify-center space-x-4 mt-4 ">
+            <a href="/agregar_habito" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
+                Agregar Nuevo Hábito
+            </a>
+            <a href="/historial" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
+                Historial
+            </a>
+        </div>
     </div>
 </body>
 </html>
