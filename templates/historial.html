@@ -10,14 +10,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial</title>
 </head>
-<body class="bg-[#5f051f]">
-    <div class="flex justify-center items-center min-h-screen text-white">
+<body class="bg-[#5f051f] flex items-center justify-center min-h-screen">
+    <div class="bg-[#F6E8EA] w-full max-w-sm mx-auto shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 class="text-2xl font-bold">Historial</h1> <!-- Solo para saber donde me fui xd -->
-        <a href="/pagina_principal" class="ml-8">
-            <button class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Volver
-            </button>
-        </a>
+        {% if habitos_completadas %} <!-- se verifica si hay habitos completados -->
+    <ul> 
+        {% for habito_completado in habitos_completados %} 
+        <li class="mb-2">{{ habito_completado.fecha_completado }} - {{ habito_completado.habito_nombre }}</li> <!-- Cada hábito completado se muestra como un elemento de lista -->
+        {% endfor %} 
+    </ul>
+    {% else %} <!-- si no se cumple la condicion-->
+    <p class="text-center">No hay hábitos completados aún</p> 
+    {% endif %} 
     </div>
+
+
+    <a href="pagina_principal" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Volver atrás</a>
 </body>
 </html>

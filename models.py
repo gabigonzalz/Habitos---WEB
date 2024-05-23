@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-import datetime as dt
+import datetime as datetime
 
 db = SQLAlchemy()
 
@@ -45,7 +45,7 @@ class HabitosCompletados(db.Model):
     id_habitos_completados = db.Column(db.Integer, primary_key=True)  
     id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id_usuario"), nullable=False)  
     id_habito_personalizado = db.Column(db.Integer, db.ForeignKey("habitos_personalizados.id_habitos_personalizados"), nullable=True) 
-    fecha_completado = db.Column(db.String, nullable=False)
+    fecha_completado = db.Column(db.DateTime, nullable=False, default=datetime.date)
 
     def __init__(self, id_habito_personalizado, id_usuario, fecha_completado):
         self.id_habito_personalizado = id_habito_personalizado

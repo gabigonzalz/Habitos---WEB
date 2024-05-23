@@ -18,19 +18,32 @@
         <!-- Estrella medio-iz  -->
         <img src="static/estrellita2.png" alt="Estrellita 2" class="absolute left-40 w-20 h-20 z-10 mb-4 mr-4"> 
 
-    <div class="w-full max-w-xl mx-auto bg-[#F6E8EA] shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 style="font-family:gorilla" class="text-2xl font-bold mb-6 text-center text-[#8c315d]">Tus Hábitos</h1>
+        <a href="index" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#F6E8EA] p-4 bg-[#8c315d] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Salir</a>
 
-        {% if habitos_personalizados %}
-        <ul class="list-disc list-inside" style="font-family:Roboto Condensed">
-            {% for habito in habitos_personalizados %}
-            <li class="mb-2">{{ habito.habito_nombre }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+
+        <div class="w-full max-w-xl mx-auto bg-[#F6E8EA] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h1 style="font-family:gorilla" class="text-2xl font-bold mb-6 text-center text-[#8c315d]">Tus Hábitos</h1>
+        
+            {% if habitos_personalizados %}
+            <ul class="list-disc list-inside" style="font-family:Roboto Condensed">
+                {% for habito in habitos_personalizados %}
+                <li class="mb-2 flex justify-between items-center">
+                    <span>{{ habito.habito_nombre }}</span>
+                    <form action="/completar_habito/{{ habito.id_habitos_personalizados }}" method="post">
+                        <input type="checkbox" name="completado" id="completado_{{ habito.id_habitos_personalizados }}" class="form-checkbox h-5 w-5 text-blue-600" {% if habito.completado %} checked {% endif %}>
+                        <label for="completado_{{ habito.id_habitos_personalizados }}" class="ml-2 text-gray-700">Completado</label>
+                        <button type="submit" class="hidden"></button> <!-- Botón oculto para enviar el formulario al hacer clic en el checkbox -->
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
 
         <a href="/agregar_habito" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
             Agregar Nuevo Hábito
+        </a>
+        <a href="/historial" style="font-family:Roboto Condensed" class="bg-[#EF626C] hover:bg-[#78d6a6] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block transform transition-transform duration-200 hover:scale-110">
+            Historial
         </a>
     </div>
 </body>
