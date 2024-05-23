@@ -7,9 +7,9 @@ db = SQLAlchemy()
 class Usuarios(db.Model):
     id_usuario = db.Column(db.Integer, primary_key=True) 
     nombre = db.Column(db.String, nullable=False) 
-    contrasena = db.Column(db.String(6), nullable=False)
+    contrasena = db.Column(db.String(20), nullable=False)
     correo = db.Column(db.String, nullable=False)
-
+    
     def __init__(self, nombre, contrasena, correo):
         self.nombre = nombre
         self.contrasena = contrasena
@@ -29,12 +29,11 @@ class HabitosUsuarios(db.Model):
 class HabitosPersonalizados(db.Model):
     id_habitos_personalizados = db.Column(db.Integer, primary_key=True) 
     habito_nombre = db.Column(db.String, nullable=False)
-    id_usuario = db.Column(db.Integer, db.ForeignKey("usuarios.id_usuario"), nullable=False)
-
-    def __init__(self, habito_nombre, id_usuario):
+    def __init__(self, habito_nombre):
         self.habito_nombre = habito_nombre
-        self.id_usuario = id_usuario
 
+
+        
 #Hábitos que los usuarios completan
 class HabitosCompletados(db.Model):
     id_habitos_completados = db.Column(db.Integer, primary_key=True)  

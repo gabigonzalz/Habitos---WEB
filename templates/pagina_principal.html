@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habitos</title>
+    <title>Página Principal</title>
 </head>
-<body>
-    <h1>Pagina Principal</h1> <!-- Solo para saber donde me fui xd --></form>
-    <a href="/pagina_principal" align="center">
-        <button style=
-        "background-color: rgb(119, 140, 97); 
-        color: white;position: relative; left: 38%;"> Historial  </button>
-    </a>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 class="text-2xl font-bold mb-6 text-center">Tus Hábitos</h1>
+
+        {% if habitos_personalizados %}
+        <ul class="list-disc list-inside">
+            {% for habito in habitos_personalizados %}
+            <li class="mb-2">{{ habito.habito_nombre }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <a href="/agregar_habito" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 inline-block">
+            Agregar Nuevo Hábito
+        </a>
+    </div>
 </body>
 </html>
