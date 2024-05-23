@@ -10,20 +10,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial</title>
 </head>
-<body class="bg-[#5f051f] flex items-center justify-center min-h-screen">
-    <div class="bg-[#F6E8EA] w-full max-w-sm mx-auto shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 class="text-2xl font-bold">Historial</h1> <!-- Solo para saber donde me fui xd -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial</title>
+</head>
+
+<body class="border-t-8 border-[#F6E8EA] flex flex-col items-center justify-center min-h-screen bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#993A55] to-[#5f051f]">
+    <div class="bg-[#F6E8EA] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 style="font-family:gorilla" class="text-2xl font-bold mb-6 text-center text-[#8c315d]"">Historial</h1>
         {% if habitos_completados %}
-        <ul>
+        <div class="flex flex-wrap justify-start">
             {% for habito_completado, habito_personalizado in habitos_completados %}
-            <li class="mb-2">{{ habito_completado.fecha_completado }} - {{ habito_personalizado.habito_nombre }}</li>
+            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-2 mb-4">
+                <div class="bg-white rounded shadow-md p-4">
+                    <p class="text-gray-600 mb-2">{{ habito_completado.fecha_completado }}</p>
+                    <p class="text-gray-800 font-bold">{{ habito_personalizado.habito_nombre }}</p>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
         {% else %}
-        <p class="text-center">No hay hábitos completados aún.</p>
-        {% endif %}    
+        <p class="text-center text-gray-700">No hay hábitos completados aún.</p>
+        {% endif %}
     </div>
-    
-    <a href="pagina_principal" style="font-family:Roboto Condensed" class="absolute bottom-4 left-4 text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 mt-5">Volver atrás</a>
+
+    <footer class="mt-auto">
+        <a href="pagina_principal" style="font-family:Roboto Condensed" class="text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 block w-full max-w-xs mx-auto m-10">Volver atrás</a>
+    </footer>
 </body>
+
 </html>
