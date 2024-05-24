@@ -179,6 +179,26 @@ def borrar_todo_historial():
 
 
 
+#RUTA; BORRAR UN HABITO COMPLETADO EN ESPECIFICO
+@app.route('/borrar_habito/<int:id_habito_completado>', methods=['POST'])
+def borrar_habito(id_habito_completado):
+
+    id_usuario = session.get("id_usuario")
+    # Filtramos todos los habitos completados del usuario
+    if id_usuario:
+        # Busca el habito completado por el id del usario y el id habito coompletado
+        habito_completado = HabitosCompletados.query.filter_by(id_usuario=id_usuario, id_habitos_completados=id_habito_completado).first()
+        
+        # Si se encuentra el habito
+        if habito_completado:
+            db.session.delete(habito_completado)
+
+            db.session.commit()
+
+    return redirect(url_for('historial_habitos'))
+
+
+
 # Siempre al final para poder ejecutar el programa
 if __name__ == "__main__":
     app.run(debug= True)
