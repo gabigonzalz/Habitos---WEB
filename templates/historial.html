@@ -40,9 +40,13 @@
         {% endif %}
     </div>
 
-    <footer class="mt-auto">
+    <footer class="flex space-x-4 m-5">
         <!-- Enlace para volver atrás -->
-        <a href="pagina_principal" style="font-family:Roboto Condensed" class="text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110 block w-full max-w-xs mx-auto m-10">Volver atrás</a>
-    </footer>
+        <a href="pagina_principal" style="font-family: Roboto Condensed;" class="text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110">Volver atrás</a>
+        <!-- Boton para limpiar el historial -->
+        <form action="/borrar_todo_historial" method="post">
+            <button type="submit" style="font-family: Roboto Condensed;" class="text-[#8c315d] p-4 bg-[#F6E8EA] font-bold rounded-lg shadow-2xl hover:bg-[#E3BCC1] hover:scale-110">Limpiar historial</button>
+        </form>
+    </footer>    
 </body>
 </html>

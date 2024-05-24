@@ -161,6 +161,22 @@ def historial_habitos():
 
 
 
+#RUTA; LIMPIAR EL HISTORIAL DEL USUARIO
+@app.route('/borrar_todo_historial', methods=['POST'])
+def borrar_todo_historial():
+
+    id_usuario = session.get("id_usuario")
+    # Filtramos todos los habitos completados del usuario
+    if id_usuario:
+        habitos_completados = HabitosCompletados.query.filter_by(id_usuario=id_usuario).all()
+        # Iteramos cada uno de los habitos para eliminar
+        for habito_completado in habitos_completados:
+            db.session.delete(habito_completado)
+
+        db.session.commit()
+    # Mostramos el historial limpio
+    return redirect(url_for('historial_habitos'))
+
 
 
 # Siempre al final para poder ejecutar el programa
