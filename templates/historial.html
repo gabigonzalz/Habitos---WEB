@@ -23,9 +23,9 @@
             <!-- Bucle for para iterar sobre los hábitos completados -->
             {% for habito_completado, habito_personalizado in habitos_completados %}
             <!-- Divs para mostrar cada hábito completado en un espacio distinto-->
-            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-2 mb-4">
+            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-2 mb-4 flex">
                 <!-- Contenedor de información del hábito completado -->
-                <div class="bg-white rounded shadow-md p-4 flex justify-between items-center">
+                <div class="bg-white rounded shadow-md p-4 flex flex-wrap justify-between items-center">
                     <div>
                         <!-- Párrafo para la fecha del hábito completado -->
                         <p class="text-gray-600 mb-2">{{ habito_completado.fecha_completado }}</p>
